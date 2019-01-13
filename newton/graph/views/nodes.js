@@ -40,6 +40,7 @@ class Nodes extends View {
 		nodes = nodes.enter()
 			.append('circle')
 				.attr('data-title', (d) => d.label)
+				.attr('id', (d) => 'node-' + d.id)
 			.merge(nodes)
 				.call(NodeUI.styleNode)
 				.call(this.adapter.drag)

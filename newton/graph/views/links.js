@@ -3,7 +3,6 @@ const View = require('./view')
 const Transitions = require('./transitions')
 
 const SELECTOR = '.link'
-const nodeRadius = 12
 const arrowViewbox = 10
 
 /**
@@ -50,9 +49,12 @@ class Links extends View {
 			.attr('x1', (d) => d.source.x)
 			.attr('y1', (d) => d.source.y)
 			.attr('x2', function (d) {
+				let targetRadius = document
+					.querySelector('#node-' + d.target.id)
+					.getAttribute('r')
 				let pos = d.target.x
 				pos = (options.arrowheads && options.flow === 'horizontal')
-					? pos - nodeRadius/2 - arrowViewbox
+					? pos - targetRadius/2 - arrowViewbox
 					: pos
 				return pos
 			})
