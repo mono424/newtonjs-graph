@@ -3,6 +3,9 @@ const View = require('./view')
 const Transitions = require('./transitions')
 
 const SELECTOR = '.link'
+const nodeRadius = 12
+const arrowViewbox = 10
+
 /**
  * Encapsulates what is needed to create the links between
  * nodes of a network graph, namely rendering and positioning
@@ -42,11 +45,17 @@ class Links extends View {
 		this.links = links
 	}
 
-	position () {
+	position (options = {}) {
 		this.links
 			.attr('x1', (d) => d.source.x)
-			.attr('x2', (d) => d.target.x)
 			.attr('y1', (d) => d.source.y)
+			.attr('x2', function (d) {
+				let pos = d.target.x
+				pos = (options.arrowheads && options.flow === 'horizontal')
+					? pos - nodeRadius/2 - arrowViewbox
+					: pos
+				return pos
+			})
 			.attr('y2', (d) => d.target.y)
 	}
 }

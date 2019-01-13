@@ -1,5 +1,5 @@
 /**
- * Base Class to force interface to be implemented
+ * Base Class to require View interface to be implemented
  */
 
 class View {
@@ -12,7 +12,7 @@ class View {
 	 * @param {Graph} graph - graph to listen to for changes
 	 */
 	bindGraph (graph) {
-		graph.on('tick', () => this.position())
+		graph.on('tick', (options = {}) => this.position(options))
 		graph.on('update', (data) => this.render(data))
 	}
 

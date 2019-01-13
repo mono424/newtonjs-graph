@@ -4,7 +4,8 @@ const data = require('./architecture.data')
 
 const graph = new Graph({
 	width: window.innerWidth,
-	flow: 'horizontal'
+	flow: 'horizontal',
+	arrowheads: true
 })
 const network = new Network(data.nodes, data.linksMap, { uid: 'id' })
 graph.bind(network)

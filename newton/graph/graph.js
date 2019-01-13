@@ -87,7 +87,7 @@ class Graph extends EventEmitter {
 		 *
 		 * @event Graph#tick
 		 */
-		this.cola.on('tick', () => this.emit('tick'))
+		this.cola.on('tick', () => this.emit('tick', this.options))
 
 		/**
 		 * Update event which passes on network data so graph elements,
@@ -109,6 +109,26 @@ class Graph extends EventEmitter {
 			nodes: network.get('nodes'),
 			links: network.get('links')
 		})
+
+		if (this.options.arrowheads) {
+			this.addMarkers()
+		}
+	}
+
+	addMarkers () {
+		d3.select('svg')
+			.append('defs')
+				.append('marker')
+					.attr('id', 'marker-arrow')
+					.attr('viewBox', '0 -5 10 10')
+					.attr('refX', 5)
+					.attr('refY', 0)
+					.attr('markerWidth', 4)
+					.attr('markerHeight', 4)
+					.attr('orient', 'auto')
+				.append('path')
+					.attr('d', 'M0,-5L10,0L0,5')
+					.attr('class','marker-arrow')
 	}
 
 	/**
