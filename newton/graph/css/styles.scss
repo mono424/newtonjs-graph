@@ -2,13 +2,13 @@
 @import "demo";
 
 .link {
-	stroke: $graphLabelColor;
-	stroke-width: 2px;
+	stroke: $graphLinkColor;
+	stroke-width: 1px;
 	marker-end: url(#marker-arrow);
 }
 
 .marker-arrow {
-	fill: $graphLabelColor;
+	fill: $graphLinkColor;
 }
 
 svg,
