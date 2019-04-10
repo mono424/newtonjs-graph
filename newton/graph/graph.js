@@ -61,6 +61,14 @@ class Graph extends EventEmitter {
 		this.links = new Links()
 		this.nodes = new Nodes()
 
+		// this.nodes.on('hello', (name) => {
+		// 	console.log('DEBUG: hello ', name)
+		// })
+
+		// this.nodes.on('exit', (n) => {
+		// 	console.log('DEBUG: exiting? ', n)
+		// })
+
 		return this
 	}
 

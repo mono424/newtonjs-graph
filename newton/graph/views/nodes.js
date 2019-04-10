@@ -19,7 +19,11 @@ class Nodes extends View {
 	constructor (options = {}) {
 		super()
 		this.adapter = options.adapter
+
+		this.dom = options.dom || window.document
+		// console.log('got dom?',this.dom)
 		this.container = options.container || 'svg'
+
 	}
 
 	/**
@@ -32,16 +36,20 @@ class Nodes extends View {
 	 */
 	render (data) {
 		if (data.nodes === undefined) { throw 'Error: missing `nodes` attribute on parameter.' }
-
+		console.log('[Debug] Data:', data)
+		// this.emit('hello', 'world')
 		let t = d3.transition()
 			.duration(300)
 			.ease(d3.easeLinear)
 
 		// -- Pattern: JOIN --
-		let nodes = d3.select(this.container)
+		// console.log('got DOM...', this.dom);
+
+		let nodes = d3.select(this.dom).select(this.container)
 			.selectAll('circle')
 			.data(data.nodes, (d) => 'node-' + d.id)
 
+		// .select(this.container)
 		// -- Pattern: REMOVE --
 		/**
 		 * @event Nodes#exit
@@ -52,6 +60,9 @@ class Nodes extends View {
 		 *    .call(Transitions.fadeDown)
 		 * })
 		 */
+		console.log('[Debug] Exiting?', nodes.exit())
+
+		// this.emit('exit', 'yeahhhhhhh')
 		this.emit('exit', nodes.exit())
 		nodes.exit()
 			.transition(t)
@@ -64,12 +75,16 @@ class Nodes extends View {
 		 * @event Nodes#enter
 		 * @property {Nodes} nodes - Entering nodes per d3.js [general update pattern, III](https://bl.ocks.org/mbostock/3808234).
 		 */
+		console.log('[Debug] Entering?', nodes.enter())
 		this.emit('enter', nodes.enter())
 		nodes = nodes.enter()
 			.append('circle')
 				.attr('data-title', (d) => d.label)
 			.merge(nodes)
 				.call(NodeUI.styleNode)
+
+		console.log('what happens here?', nodes)
+
 
 		// /**
 		//  * @event Nodes#update
