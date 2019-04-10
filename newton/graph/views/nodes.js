@@ -5,6 +5,11 @@ const Transitions = require('./transitions')
 const NodeUI = require('./styles/node.ui')
 
 /**
+ * D3 Selection, see https://github.com/d3/d3-selection
+ * @typedef {d3Selection} d3Selection
+ */
+
+/**
  * Encapsulates what is needed to create the nodes of a network graph,
  * namely rendering, positioning and animation of nodes based on data.
  *
@@ -49,7 +54,7 @@ class Nodes extends View {
 		// -- Pattern: REMOVE --
 		/**
 		 * @event Nodes#exit
-		 * @property {Nodes} nodes - Exiting nodes per d3.js [general update pattern, III](https://bl.ocks.org/mbostock/3808234).
+		 * @property {d3Selection} nodes - Exiting nodes per d3.js [general update pattern, III](https://bl.ocks.org/mbostock/3808234).
 		 * @example
 		 * nodes.on('exit', function (n) {
 		 *   n.call(Transitions.fadeOut)
@@ -66,7 +71,7 @@ class Nodes extends View {
 		// -- Pattern: ENTER + UPDATE (merge()) --
 		/**
 		 * @event Nodes#enter
-		 * @property {Nodes} nodes - Entering nodes per d3.js [general update pattern, III](https://bl.ocks.org/mbostock/3808234).
+		 * @property {d3Selection} nodes - Entering nodes per d3.js [general update pattern, III](https://bl.ocks.org/mbostock/3808234).
 		 */
 		this.emit('enter', nodes.enter())
 		nodes = nodes.enter()
@@ -77,7 +82,7 @@ class Nodes extends View {
 
 		/**
 		 * @event Nodes#update
-		 * @property {Nodes} nodes - Updating nodes (post merge with enter) per d3.js [general update pattern, III](https://bl.ocks.org/mbostock/3808234).
+		 * @property {d3Selection} nodes - Updating nodes (post merge with enter) per d3.js [general update pattern, III](https://bl.ocks.org/mbostock/3808234).
 		 * @example
 		 * nodes.on('update', (n) => n.call(webcola.drag))
 		 */
